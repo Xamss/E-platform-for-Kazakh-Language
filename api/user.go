@@ -2,10 +2,10 @@ package api
 
 type RegisterRequest struct {
 	Username  string `json:"username" db:"username" binding:"required"`
-	FirstName string `json:"first_name" db:"first_name" binding:"required"`
-	LastName  string `json:"last_name" db:"last_name" binding:"required"`
+	FirstName string `json:"firstname" db:"firstname" binding:"required"`
+	LastName  string `json:"lastname" db:"lastname" binding:"required"`
 	Email     string `json:"email" db:"email" binding:"required"`
-	Password  string `json:"password" db:"hashed_password" binding:"required"`
+	Password  string `json:"password" db:"password" binding:"required"`
 }
 
 type LoginRequest struct {

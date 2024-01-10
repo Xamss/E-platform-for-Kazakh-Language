@@ -19,7 +19,7 @@ func (p *Postgres) CreateUser(ctx context.Context, u *model.User) error {
 			                hashed_password
 			                )
 			VALUES ($1, $2, $3, $4, $5)
-			`, "user")
+			`, "users")
 
 	fmt.Println(u)
 	_, err := p.Pool.Exec(ctx, query, u.Username, u.FirstName, u.LastName, u.Email, u.Password)
@@ -33,7 +33,7 @@ func (p *Postgres) CreateUser(ctx context.Context, u *model.User) error {
 func (p *Postgres) GetUser(ctx context.Context, username string) (*model.User, error) {
 	user := new(model.User)
 
-	query := fmt.Sprintf("SELECT id, username, first_name, last_name, email, hashed_password FROM %s WHERE username = $1", "user")
+	query := fmt.Sprintf("SELECT id, username, first_name, last_name, email, hashed_password FROM %s WHERE username = $1", "users")
 
 	//rows, err := p.SQLDB.Query(query, username)
 	//if err != nil {

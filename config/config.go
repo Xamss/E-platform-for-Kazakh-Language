@@ -10,9 +10,9 @@ type Config struct {
 	HTTP struct {
 		Port         int    `yaml:"port" env-default:"4000"`
 		Host         string `yaml:"host" env-default:"localhost"`
-		ReadTimeout  string    `yaml:"read_timeout" env-default:"10s"`
-		IdleTimeout  string    `yaml:"idle_timeout" env-default:"60s"`
-		WriteTimeout string    `yaml:"write_timeout" env-default:"30s"`
+		ReadTimeout  string `yaml:"read_timeout" env-default:"10s"`
+		IdleTimeout  string `yaml:"idle_timeout" env-default:"60s"`
+		WriteTimeout string `yaml:"write_timeout" env-default:"30s"`
 	} `yaml:"http"`
 
 	ENV string `yaml:"env" env-default:"development"`
@@ -51,10 +51,16 @@ type Config struct {
 }
 
 func InitConfig(path string) (*Config, error) {
-	var config Config
+	config := new(Config)
 	err := cleanenv.ReadConfig(path, config)
 	if err != nil {
 		return nil, err
 	}
-	return &config, nil
+
+	err = cleanenv.ReadEnv(config)
+	if err != nil {
+		return nil, err
+	}
+
+	return config, nil
 }

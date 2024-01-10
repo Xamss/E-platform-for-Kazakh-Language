@@ -1,10 +1,11 @@
 package pgrepo
 
 import (
-	"xamss.diploma/config"
 	"errors"
 	"fmt"
 	"log"
+
+	"xamss.diploma/config"
 
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
@@ -21,7 +22,7 @@ func NewMigrate(config *config.Config) *Migrate {
 
 	migr, err := migrate.New(
 		fmt.Sprintf("file://%s", config.DB.MigrationPath),
-		fmt.Sprintf(config.DB.DSN+"sslmode=disable"))
+		fmt.Sprintf(config.DB.DSN))
 	if err != nil {
 		log.Fatal(err)
 	}

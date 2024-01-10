@@ -45,6 +45,13 @@ func main() {
 	}
 	log.Println("connection success")
 
+	migration := pgrepo.NewMigrate(cfg)
+
+	err = migration.MigrateToVersion(cfg.DB.MigrationVersion)
+	if err != nil {
+		log.Fatal("Failed to migrate tables")
+	}
+
 	token := jwttoken.New(cfg.Token.SecretKey)
 	srvs := usecase.New(pool, token, cfg)
 	hndlr := server.New(srvs)
