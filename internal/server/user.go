@@ -56,6 +56,7 @@ func (h *Handler) createUser(ctx *gin.Context) {
 }
 
 func (h *Handler) loginUser(ctx *gin.Context) {
+	log.Printf("Arrived at loginUser handler")
 	var req api.LoginRequest
 
 	err := ctx.ShouldBindJSON(&req)
@@ -70,6 +71,7 @@ func (h *Handler) loginUser(ctx *gin.Context) {
 
 	accessToken, err := h.srvs.Login(ctx, req.Username, req.Password)
 	if err != nil {
+		log.Printf("login error: %s \n", err.Error())
 		ctx.JSON(http.StatusInternalServerError, &api.Error{
 			Code:    -2,
 			Message: err.Error(),
@@ -77,13 +79,10 @@ func (h *Handler) loginUser(ctx *gin.Context) {
 		return
 	}
 
+
 	ctx.JSON(http.StatusOK, &api.Ok{
 		Code:    0,
 		Message: "success",
 		Data:    accessToken,
 	})
 }
-
-
-
-
