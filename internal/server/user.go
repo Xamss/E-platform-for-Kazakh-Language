@@ -37,8 +37,6 @@ func (h *Handler) createUser(ctx *gin.Context) {
 
 	u := &model.User{
 		Username:  req.Username,
-		FirstName: req.FirstName,
-		LastName:  req.LastName,
 		Email:     req.Email,
 		Password:  req.Password,
 	}

@@ -12,7 +12,7 @@ function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [name, setName] = useState('');
+  const [username, setName] = useState('');
   const URL = `${import.meta.env.VITE_API_ENDPOINT}`;
   const navigate = useNavigate();
   let toastId = null;
@@ -52,7 +52,7 @@ function Signup() {
       email === '' ||
       password === '' ||
       confirmPassword === '' ||
-      name === ''
+      username === ''
     ) {
       toast.update(toastId, {
         render: 'Please fill all the fields',
@@ -72,13 +72,13 @@ function Signup() {
   const fetchSignup = async () => {
     try {
       // console.log(URL);
-      const response = await axios.post(`${URL}/auth/signup`, {
+      const response = await axios.post(`${URL}/user/register`, {
         email,
         password,
-        name,
+        username,
       });
       // console.log(response);
-      if (response.data.ok) {
+      if (response.status == 201) {
         toast.update(toastId, {
           render: 'Signup successful',
           type: 'success',
